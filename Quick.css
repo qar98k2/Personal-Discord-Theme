@@ -1,0 +1,74 @@
+/* --- 1. GLOBAL ANIMATION KILLER --- */
+/* Disables all transitions and animations. This is the biggest performance saver. */
+* {
+    transition: none !important;
+    animation: none !important;
+}
+
+/* --- 2. GPU SAVER (Disable Blurs & Transparency) --- */
+/* Removing backdrop-filters drastically lowers GPU usage on window rendering. */
+.theme-dark, .theme-light {
+    --background-primary: #1e1f22 !important; /* Solid dark grey, no transparency */
+    --background-secondary: #2b2d31 !important;
+    --background-secondary-alt: #1e1f22 !important;
+    --background-tertiary: #111214 !important;
+    --background-floating: #111214 !important;
+}
+
+/* Force disable heavy glass/blur effects */
+div[class*="backdrop"], div[class*="layer"], div[class*="focusLock"] {
+    backdrop-filter: none !important;
+    filter: none !important;
+}
+
+/* --- 3. DEBLOAT (Remove Unnecessary DOM Elements) --- */
+/* Hiding these elements stops the renderer from calculating their layout */
+
+/* Hide Nitro & Shop Tabs in DM List */
+[href="/store"], 
+[href="/shop"], 
+[href="/nitro"] {
+    display: none !important;
+}
+
+/* Hide Gift Button in Text Area */
+button[aria-label="Send a gift"] {
+    display: none !important;
+}
+
+/* Hide Sticker Button in Text Area */
+button[aria-label="Open sticker picker"] {
+    display: none !important;
+}
+
+/* Hide "Public" Server Discovery Compass (Optional - saves background loading) */
+[href="/guild-discovery"] {
+    display: none !important;
+}
+
+/* --- 4. RENDERER OPTIMIZATIONS --- */
+/* Simplifies shadows to reduce paint cycles */
+* {
+    box-shadow: none !important;
+    text-shadow: none !important;
+}
+
+/* Stop images from cross-fading or lazy-loading with effects */
+img {
+    image-rendering: optimizeSpeed; /* Uses nearest neighbor, faster but pixelated */
+    /* If too ugly, remove the line above */
+}
+
+/* Hide User Profile Effects/Decorations (Heavy on resources) */
+div[class*="avatarDecoration"],
+div[class*="profileEffects"] {
+    display: none !important;
+}
+
+/* --- 5. CLEANER CHAT (Optional Performance Boost) --- */
+/* Reduces the complexity of the chat container */
+
+/* Simplify message hover effects */
+div[class*="message"]:hover {
+    background-color: transparent !important; 
+}
